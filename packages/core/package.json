@@ -1,0 +1,22 @@
+{
+  "name": "@zedocar/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cérebro compartilhado do Zé do CAR: legislação, RAG, persona e voz. Reaproveitável por todos os módulos.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "ingest": "tsx scripts/ingest.ts",
+    "parse-check": "tsx scripts/parse-check.ts"
+  },
+  "dependencies": {
+    "openai": "^6.45.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "tsx": "^4.22.4",
+    "typescript": "^5"
+  }
+}

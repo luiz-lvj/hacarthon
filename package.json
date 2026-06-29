@@ -1,0 +1,18 @@
+{
+  "name": "zedocar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zé do CAR — plataforma modular que traduz a legislação ambiental para o produtor rural (haCARthon, Desafio 3).",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @zedocar/web",
+    "build": "npm run build --workspace @zedocar/web",
+    "start": "npm run start --workspace @zedocar/web",
+    "lint": "npm run lint --workspace @zedocar/web",
+    "ingest": "npm run ingest --workspace @zedocar/core",
+    "parse-check": "npm run parse-check --workspace @zedocar/core"
+  }
+}
