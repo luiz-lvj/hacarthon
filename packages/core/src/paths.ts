@@ -10,10 +10,6 @@ const CORE_PKG_ROOT = path.resolve(
   "..",
 );
 
-/**
- * Encontra a raiz do monorepo subindo a partir do cwd até achar package.json
- * com "workspaces". Em produção (Vercel), pode não existir — usa cwd.
- */
 export function repoRoot(): string {
   if (cachedRoot) return cachedRoot;
   let dir = process.cwd();
@@ -38,15 +34,19 @@ export function repoRoot(): string {
   return cachedRoot;
 }
 
-/** Primeiro caminho onde knowledge.json existe (core, monorepo ou cwd). */
+/** Onde está knowledge.json — prioriza apps/web/data (Vercel/serverless). */
 export function dataDir(): string {
   if (cachedDataDir) return cachedDataDir;
 
+  const root = repoRoot();
   const candidates = [
-    path.join(CORE_PKG_ROOT, "data"),
-    path.join(repoRoot(), "data"),
+    process.env.KNOWLEDGE_DATA_DIR,
     path.join(process.cwd(), "data"),
-  ];
+    path.join(root, "apps", "web", "data"),
+    path.join(root, "packages", "core", "data"),
+    path.join(CORE_PKG_ROOT, "data"),
+    path.join(root, "data"),
+  ].filter(Boolean) as string[];
 
   for (const dir of candidates) {
     if (fs.existsSync(path.join(dir, "knowledge.json"))) {
@@ -55,8 +55,7 @@ export function dataDir(): string {
     }
   }
 
-  // Fallback: local padrão do pacote core (antes da ingestão).
-  cachedDataDir = path.join(CORE_PKG_ROOT, "data");
+  cachedDataDir = path.join(process.cwd(), "data");
   return cachedDataDir;
 }
 

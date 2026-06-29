@@ -4,6 +4,7 @@
   "private": true,
   "description": "Interface do Zé do CAR (estilo WhatsApp) + APIs de chat, voz e webhook do WhatsApp.",
   "scripts": {
+    "prebuild": "node scripts/copy-knowledge.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

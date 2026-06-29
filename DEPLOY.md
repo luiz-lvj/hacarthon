@@ -42,6 +42,7 @@ git push origin main
 
 O arquivo `apps/web/vercel.json` já define os comandos do monorepo:
 
+- `prebuild`: copia `packages/core/data/knowledge.json` → `apps/web/data/` (obrigatório na Vercel)
 - `installCommand`: instala dependências na raiz (`npm install`)
 - `buildCommand`: build do workspace `@zedocar/web`
 

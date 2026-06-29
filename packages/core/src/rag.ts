@@ -11,7 +11,7 @@ export function loadKnowledge(): EmbeddedChunk[] {
   const file = knowledgePath();
   if (!fs.existsSync(file)) {
     throw new Error(
-      "Base de conhecimento não encontrada. Rode `npm run ingest` para gerar data/knowledge.json.",
+      "Base de conhecimento não encontrada. Rode `npm run ingest` e faça redeploy (o build copia para apps/web/data/).",
     );
   }
   knowledge = JSON.parse(fs.readFileSync(file, "utf-8")) as EmbeddedChunk[];

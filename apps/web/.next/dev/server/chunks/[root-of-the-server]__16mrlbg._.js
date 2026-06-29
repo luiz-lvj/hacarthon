@@ -145,19 +145,22 @@ function repoRoot() {
 }
 function dataDir() {
     if (cachedDataDir) return cachedDataDir;
+    const root = repoRoot();
     const candidates = [
+        process.env.KNOWLEDGE_DATA_DIR,
+        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), "data"),
+        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(root, "apps", "web", "data"),
+        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(root, "packages", "core", "data"),
         __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(CORE_PKG_ROOT, "data"),
-        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(repoRoot(), "data"),
-        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), "data")
-    ];
+        __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(root, "data")
+    ].filter(Boolean);
     for (const dir of candidates){
         if (__TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs__$5b$external$5d$__$28$node$3a$fs$2c$__cjs$29$__["default"].existsSync(__TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(dir, "knowledge.json"))) {
             cachedDataDir = dir;
             return dir;
         }
     }
-    // Fallback: local padrão do pacote core (antes da ingestão).
-    cachedDataDir = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(CORE_PKG_ROOT, "data");
+    cachedDataDir = __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$path__$5b$external$5d$__$28$node$3a$path$2c$__cjs$29$__["default"].join(process.cwd(), "data");
     return cachedDataDir;
 }
 function knowledgePath() {
@@ -189,7 +192,7 @@ function loadKnowledge() {
     if (knowledge) return knowledge;
     const file = (0, __TURBOPACK__imported__module__$5b$project$5d2f$packages$2f$core$2f$src$2f$paths$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["knowledgePath"])();
     if (!__TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs__$5b$external$5d$__$28$node$3a$fs$2c$__cjs$29$__["default"].existsSync(file)) {
-        throw new Error("Base de conhecimento não encontrada. Rode `npm run ingest` para gerar data/knowledge.json.");
+        throw new Error("Base de conhecimento não encontrada. Rode `npm run ingest` e faça redeploy (o build copia para apps/web/data/).");
     }
     knowledge = JSON.parse(__TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs__$5b$external$5d$__$28$node$3a$fs$2c$__cjs$29$__["default"].readFileSync(file, "utf-8"));
     return knowledge;

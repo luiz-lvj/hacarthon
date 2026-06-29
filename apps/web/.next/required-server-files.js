@@ -308,22 +308,22 @@ self.__SERVER_FILES_MANIFEST={
     ],
     "outputFileTracingIncludes": {
       "/api/chat": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ],
       "/api/whatsapp": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ],
       "/api/status": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ],
       "/api/tts": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ],
       "/api/stt": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ],
       "/api/voice/[id]": [
-        "/Users/luiz/Documents/hackathons/hacarthon/packages/core/data/knowledge.json"
+        "./data/knowledge.json"
       ]
     },
     "turbopack": {
