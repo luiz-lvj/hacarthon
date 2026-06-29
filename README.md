@@ -58,6 +58,14 @@ Guia completo passo a passo: **[DEPLOY.md](./DEPLOY.md)**
 
 Resumo: importe o repo na Vercel com **Root Directory = `apps/web`**, configure as env vars (OpenAI + Twilio), faça deploy e aponte o webhook do Twilio para `https://seu-projeto.vercel.app/api/whatsapp`.
 
+## Materiais do haCARthon
+
+| Arquivo | Descrição |
+|---------|-----------|
+| [docs/APRESENTACAO.html](./docs/APRESENTACAO.html) | Slides da apresentação (abrir no navegador; ← → para navegar) |
+| [docs/IDEACAO.md](./docs/IDEACAO.md) | Respostas completas para o formulário de ideação e protótipo |
+| [docs/zedocar-logo.png](./docs/zedocar-logo.png) | Logomarca (upload no formulário) |
+
 ---
 
 ## Rodando localmente

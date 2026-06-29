@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zé do CAR — Apresentação haCARthon</title>
+  <style>
+    :root {
+      --green-dark: #0b3d2e;
+      --green: #14532d;
+      --green-light: #22c55e;
+      --green-pale: #d9fdd3;
+      --wa-header: #075e54;
+      --text: #111b21;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #0a0a0a;
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+    }
+    .deck { height: 100vh; position: relative; }
+    .slide {
+      display: none;
+      height: 100vh;
+      padding: 3rem 4rem;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      inset: 0;
+      animation: fadeIn 0.35s ease;
+    }
+    .slide.active { display: flex; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide--hero {
+      background: linear-gradient(135deg, var(--green-dark), var(--green) 50%, #166534);
+      color: white;
+      text-align: center;
+      align-items: center;
+    }
+    .slide--green { background: linear-gradient(160deg, #f0fdf4, #ecfdf5); }
+    .slide--dark {
+      background: linear-gradient(160deg, var(--green-dark), var(--green));
+      color: white;
+    }
+    .slide--cta {
+      background: linear-gradient(160deg, var(--wa-header), var(--green));
+      color: white;
+      text-align: center;
+      align-items: center;
+    }
+    .logo { width: 120px; height: 120px; border-radius: 28px; margin-bottom: 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; font-weight: 800; }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); color: var(--green); margin-bottom: 1.5rem; font-weight: 700; }
+    .slide--dark h2, .slide--hero h2, .slide--cta h2 { color: var(--green-light); }
+    .subtitle { font-size: 1.25rem; opacity: 0.9; margin-top: 1rem; max-width: 720px; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    ul { list-style: none; font-size: 1.15rem; line-height: 1.7; }
+    ul li { padding: 0.35rem 0; padding-left: 1.5rem; position: relative; }
+    ul li::before { content: "🌱"; position: absolute; left: 0; font-size: 0.85rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+    }
+    .card h3 { color: var(--green); font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .card p { font-size: 0.95rem; color: var(--muted); line-height: 1.55; }
+    .stat-row { display: flex; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+    .stat {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .stat strong { display: block; font-size: 1.8rem; color: var(--green); }
+    .stat span { font-size: 0.8rem; color: var(--muted); }
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .flow-box {
+      background: white;
+      color: var(--text);
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .flow-arrow { color: var(--green-light); font-size: 1.4rem; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .tag {
+      background: var(--green-pale);
+      color: var(--green);
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    /* CTA slide */
+    .phone-box {
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 24px;
+      padding: 2rem 3rem;
+      margin: 1.5rem 0;
+      backdrop-filter: blur(8px);
+    }
+    .phone-number {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin: 0.5rem 0;
+    }
+    .cta-link {
+      color: #86efac;
+      font-size: 1.3rem;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .cta-link:hover { text-decoration: underline; }
+    .steps { text-align: left; max-width: 520px; margin: 1rem auto; font-size: 1rem; line-height: 1.8; }
+    .steps li::before { content: counter(step) "."; counter-increment: step; color: var(--green-light); font-weight: 700; }
+    .steps { counter-reset: step; }
+    /* Nav */
+    .nav {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+    .nav button {
+      background: var(--green);
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .nav button:hover { background: var(--green-light); color: var(--green-dark); }
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--green-light);
+      transition: width 0.3s;
+      z-index: 100;
+    }
+    .slide-num {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      z-index: 100;
+    }
+    .slide:not(.slide--dark):not(.slide--hero):not(.slide--cta) + .slide-num { color: var(--muted); }
+    .highlight { color: var(--green-light); }
+    .small { font-size: 0.85rem; opacity: 0.75; margin-top: 1rem; }
+    @media (max-width: 768px) {
+      .slide { padding: 2rem 1.5rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="slide-num" id="slideNum"></div>
+
+  <div class="deck" id="deck">
+
+    <!-- 1. Capa -->
+    <section class="slide slide--hero active">
+      <img src="zedocar-logo.png" alt="Zé do CAR" class="logo" />
+      <div class="badge">haCARthon · Desafio 3 · Bem Público Digital</div>
+      <h1>Zé do CAR</h1>
+      <p class="subtitle">Traduz a legislação ambiental para a língua de quem vive no campo — no WhatsApp, com áudio e base na lei.</p>
+      <p class="small" style="margin-top:2rem">Equipe haCARthon · 2026</p>
+    </section>
+
+    <!-- 2. Problema -->
+    <section class="slide slide--green">
+      <h2>O problema</h2>
+      <div class="stat-row">
+        <div class="stat"><strong>8,2 mi</strong><span>imóveis no CAR</span></div>
+        <div class="stat"><strong>só 9%</strong><span>cadastros validados</span></div>
+        <div class="stat"><strong>#1</strong><span>gargalo: comunicação com o produtor</span></div>
+      </div>
+      <ul style="margin-top:2rem">
+        <li>A lei está em manuais densos; o produtor busca respostas no <strong>WhatsApp</strong></li>
+        <li>Termos como APP, Reserva Legal e PRA geram <strong>medo e insegurança</strong></li>
+        <li>Notificações técnicas não são compreendidas → retificações infinitas</li>
+        <li>Estados como MT já usam WhatsApp; CE usa rádio (CPI/PUC-Rio, 2025)</li>
+      </ul>
+    </section>
+
+    <!-- 3. Personas -->
+    <section class="slide slide--green">
+      <h2>Para quem?</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>👨‍🌾 Seu Raimundo</h3>
+          <p>Pequeno/médio produtor. Informa-se por <strong>WhatsApp, rádio e TikTok</strong>. Confia em exemplos concretos. Medo de multa, embargo e perder a terra. Precisa de linguagem simples e <strong>áudio</strong>.</p>
+        </div>
+        <div class="card">
+          <h3>👩‍💼 Luana (roadmap)</h3>
+          <p>Analista da OEMA. Repete explicações o dia todo. Precisa de ferramentas que traduzam a lei em orientações claras para o produtor — e ganhem escala no atendimento.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Solução -->
+    <section class="slide slide--dark">
+      <h2>A solução</h2>
+      <p style="font-size:1.3rem;line-height:1.6;max-width:800px">
+        O <strong class="highlight">Zé do CAR</strong> é um assistente conversacional que explica o
+        <strong>Cadastro Ambiental Rural</strong> e o <strong>Código Florestal</strong>
+        como um vizinho que entende do assunto — com respostas <strong>fundamentadas na lei</strong>.
+      </p>
+      <ul style="margin-top:1.5rem;color:rgba(255,255,255,0.9)">
+        <li>Linguagem simples + exemplos concretos</li>
+        <li>Resposta em texto e áudio (para quem lê pouco)</li>
+        <li>Cita o artigo do Código Florestal em cada resposta</li>
+        <li>Canal: WhatsApp + site web</li>
+      </ul>
+    </section>
+
+    <!-- 5. Como funciona -->
+    <section class="slide slide--green">
+      <h2>Como funciona</h2>
+      <div class="flow">
+        <span class="flow-box">📱 Produtor pergunta</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-box">🔍 RAG na lei</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-box">🤖 IA (linguagem simples)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-box">📖 Resposta + artigo</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-box">🔊 Áudio (opcional)</span>
+      </div>
+      <p style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem;max-width:700px">
+        Indexamos <strong>111 artigos</strong> da Lei 12.651/2012 e do Decreto 7.830/2012.
+        A IA responde <em>só</em> com base nesses trechos — reduz alucinação e dá credibilidade.
+      </p>
+    </section>
+
+    <!-- 6. O que construímos -->
+    <section class="slide slide--green">
+      <h2>O que construímos (MVP)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>✅ Funcional hoje</h3>
+          <ul style="font-size:0.95rem">
+            <li>Chat web estilo WhatsApp</li>
+            <li>WhatsApp via Twilio Sandbox</li>
+            <li>Perguntas por texto e voz</li>
+            <li>Respostas com citação da lei</li>
+            <li>Resposta em áudio (TTS)</li>
+            <li>Deploy: zedocar.xyz</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🏗️ Arquitetura open source</h3>
+          <ul style="font-size:0.95rem">
+            <li>Monorepo: apps/web + packages/core</li>
+            <li>RAG transparente (knowledge.json)</li>
+            <li>Módulo reutilizável (@zedocar/core)</li>
+            <li>Alinhado ao ecossistema RER</li>
+            <li>Licença MIT</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Tech -->
+    <section class="slide slide--dark">
+      <h2>Stack tecnológica</h2>
+      <div class="tech-tags">
+        <span class="tag">Next.js 16</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">OpenAI (RAG + chat)</span>
+        <span class="tag">Whisper (STT)</span>
+        <span class="tag">TTS (voz PT-BR)</span>
+        <span class="tag">Twilio WhatsApp</span>
+        <span class="tag">Vercel</span>
+        <span class="tag">Lei 12.651/2012</span>
+        <span class="tag">Decreto 7.830/2012</span>
+      </div>
+      <p style="margin-top:2rem;opacity:0.85;font-size:1rem;max-width:650px">
+        Código aberto, modular e pensado como <strong>Bem Público Digital</strong> —
+        replicável por estados e países, integrável ao <strong>RER</strong>.
+      </p>
+    </section>
+
+    <!-- 8. Impacto -->
+    <section class="slide slide--green">
+      <h2>Impacto esperado</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Para o produtor</h3>
+          <p>Entender a lei sem juridiquês · Perder o medo de errar · Saber benefícios da regularidade (crédito, PRA) · Responder notificações com clareza</p>
+        </div>
+        <div class="card">
+          <h3>Para o CAR / OEMAs</h3>
+          <p>Menos retificações por desconhecimento · Comunicação em escala via WhatsApp · Apoio à validação cadastral · Alinhado à estratégia federal de BPD</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Diferencial -->
+    <section class="slide slide--green">
+      <h2>Diferencial</h2>
+      <ul>
+        <li><strong>Canal certo:</strong> WhatsApp + áudio — não só portal web</li>
+        <li><strong>Fonte certa:</strong> RAG na legislação oficial, cita artigo</li>
+        <li><strong>Linguagem certa:</strong> Tom de vizinho, persona “Seu Raimundo”</li>
+        <li><strong>Prova de conceito real:</strong> MVP deployado e testável agora</li>
+        <li><strong>Bem Público Digital:</strong> Código aberto, módulo do ecossistema CAR/RER</li>
+      </ul>
+    </section>
+
+    <!-- 10. CTA WhatsApp -->
+    <section class="slide slide--cta">
+      <h2>🌱 Teste agora!</h2>
+      <p style="font-size:1.15rem;opacity:0.9">Mande sua dúvida sobre o CAR ou o Código Florestal</p>
+
+      <div class="phone-box">
+        <p style="font-size:1rem;opacity:0.9">Pergunte, por exemplo:</p>
+        <p style="font-size:1.15rem;font-style:italic;margin:0.75rem 0">"O que é Reserva Legal?"</p>
+        <p class="phone-number">📱 +1 (573) 400-3592</p>
+        <p style="font-size:0.85rem;opacity:0.7">WhatsApp · Zé do CAR</p>
+      </div>
+
+      <p>ou acesse o site:</p>
+      <a class="cta-link" href="https://www.zedocar.xyz" target="_blank">www.zedocar.xyz</a>
+    </section>
+
+    <!-- 11. Próximos passos -->
+    <section class="slide slide--green">
+      <h2>Próximos passos</h2>
+      <ul>
+        <li>WhatsApp Business API (número BR oficial)</li>
+        <li>Diagnóstico por imóvel (integração consulta.car.gov.br)</li>
+        <li>Módulo “tradutor de notificações” para analistas (Luana)</li>
+        <li>Piloto com OEMA + cooperativas/ATER</li>
+        <li>Integração oficial ao RER (Bem Público Digital)</li>
+      </ul>
+    </section>
+
+    <!-- 12. Encerramento -->
+    <section class="slide slide--hero">
+      <img src="zedocar-logo.png" alt="Zé do CAR" class="logo" style="width:90px;height:90px" />
+      <h1 style="font-size:2.5rem">Obrigado!</h1>
+      <p class="subtitle">Zé do CAR — porque entender a lei não deveria exigir faculdade de direito.</p>
+      <p style="margin-top:2rem;font-size:1.1rem">
+        🌐 <a href="https://www.zedocar.xyz" style="color:#86efac">zedocar.xyz</a>
+        &nbsp;·&nbsp; 📱 +1 (573) 400-3592
+      </p>
+      <p class="small">haCARthon · Desafio 3 · Código aberto · MIT</p>
+    </section>
+
+  </div>
+
+  <nav class="nav">
+    <button id="prev" aria-label="Anterior">←</button>
+    <button id="next" aria-label="Próximo">→</button>
+  </nav>
+
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    let current = 0;
+
+    function show(i) {
+      current = Math.max(0, Math.min(i, slides.length - 1));
+      slides.forEach((s, j) => s.classList.toggle("active", j === current));
+      document.getElementById("progress").style.width =
+        ((current + 1) / slides.length * 100) + "%";
+      document.getElementById("slideNum").textContent =
+        (current + 1) + " / " + slides.length;
+    }
+
+    document.getElementById("next").onclick = () => show(current + 1);
+    document.getElementById("prev").onclick = () => show(current - 1);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); show(current + 1); }
+      if (e.key === "ArrowLeft") show(current - 1);
+    });
+
+    show(0);
+  </script>
+</body>
+</html>
