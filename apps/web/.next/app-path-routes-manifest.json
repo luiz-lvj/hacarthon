@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/chat/route": "/api/chat",
+  "/api/status/route": "/api/status",
+  "/api/stt/route": "/api/stt",
+  "/api/tts/route": "/api/tts",
+  "/api/voice/[id]/route": "/api/voice/[id]",
+  "/api/whatsapp/route": "/api/whatsapp",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/"
+}

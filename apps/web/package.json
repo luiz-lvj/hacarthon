@@ -1,0 +1,31 @@
+{
+  "name": "@zedocar/web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interface do Zé do CAR (estilo WhatsApp) + APIs de chat, voz e webhook do WhatsApp.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@zedocar/core": "*",
+    "next": "16.2.9",
+    "openai": "^6.45.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "twilio": "^6.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
